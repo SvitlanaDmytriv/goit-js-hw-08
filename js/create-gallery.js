@@ -22,12 +22,14 @@ function createGalleryItemsMarkUp(items) {
   <a
     class="gallery__link"
     href="${original}"
+    tabindex="-1"
   >
     <img
-      class="gallery__image"
+      class="gallery__image "
       src="${preview}"
       data-source="${original}"
       alt="${description}"
+      tabindex="1"
     />
   </a>
 </li>`).join('')
@@ -48,10 +50,10 @@ function onOpenModalClick (e) {
     refs.lightboxContainer.classList.add('is-open')
     refs.lightboxImage.src = e.target.getAttribute('data-source')
     refs.lightboxImage.alt = e.target.alt
-  
-   window.addEventListener('keydown', onCloseModalKeyDown)
-  
-   refs.bodyEl.classList.add('noscroll');
+
+  refs.bodyEl.classList.add('noscroll')
+
+  window.addEventListener('keydown', onCloseModalKeyDown)
 }
 
 
@@ -65,6 +67,8 @@ function onCloseModalClick(){
 
   window.removeEventListener('keydown', onCloseModalKeyDown)
   refs.bodyEl.classList.remove('noscroll');
+
+  
 }
 
 
@@ -83,6 +87,15 @@ function onCloseModalKeyDown(e){
     onCloseModalClick()
 }
   
+
+window.addEventListener('keydown', onOpenModalKeyDown)
+
+function onOpenModalKeyDown(e) {
+if (e.code === 'Enter') {
+    onOpenModalClick(e)
+  }
+}
+
 
 
 
